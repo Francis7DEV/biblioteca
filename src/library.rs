@@ -1,3 +1,5 @@
+use std::io;
+
 pub(super) struct Library {
     name: String,
     owner: String,
@@ -7,13 +9,22 @@ pub(super) struct Library {
 impl Library {
     pub(super) fn new_lib() -> Library {
         Library {
-            name: String::from("Teste"),
-            owner: String::from("Teste2"),
-            books: 3,
+            name: Self::set_name(),
+            owner: String::from("Dono"),
+            books: 8,
         }
     }
 
-    pub(super) fn teste(&self) {
-        println!("Temos aqui: {}, {}, {}", self.name, self.owner, self.books)
+    fn set_name() -> String {
+        let mut name: String = String::new();
+        println!("Qual o nome da sua biblioteca?");
+        io::stdin()
+            .read_line(&mut name)
+            .expect("Erro ao ler entrada!");
+        String::from(name.trim())
+    }
+
+    pub(super) fn get_name(&self) -> &str {
+        &self.name
     }
 }

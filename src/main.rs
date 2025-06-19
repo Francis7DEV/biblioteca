@@ -4,8 +4,8 @@ use std::{thread, time};
 
 fn main() {
     greeting();
-    let teste: Library = library::Library::new_lib();
-    teste.teste()
+    let teste: Library = Library::new_lib();
+    println!("{}", teste.get_name())
 }
 
 fn greeting() {
