@@ -1,7 +1,11 @@
+mod library;
+use library::Library;
 use std::{thread, time};
 
 fn main() {
     greeting();
+    let teste: Library = library::Library::new_lib();
+    teste.teste()
 }
 
 fn greeting() {
