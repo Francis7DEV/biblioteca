@@ -10,9 +10,21 @@ impl Library {
     pub(super) fn new_lib() -> Library {
         Library {
             name: Self::set_name(),
-            owner: String::from("Dono"),
-            books: 8,
+            owner: Self::set_owner(),
+            books: 0,
         }
+    }
+
+    pub(super) fn get_name(&self) -> &str {
+        &self.name
+    }
+
+    pub(super) fn get_owner(&self) -> &str {
+        &self.owner
+    }
+
+    pub(super) fn get_books(&self) -> &u32 {
+        &self.books
     }
 
     fn set_name() -> String {
@@ -24,7 +36,12 @@ impl Library {
         String::from(name.trim())
     }
 
-    pub(super) fn get_name(&self) -> &str {
-        &self.name
+    fn set_owner() -> String {
+        let mut owner: String = String::new();
+        println!("Qual o nome do dono da biblioteca?");
+        io::stdin()
+            .read_line(&mut owner)
+            .expect("Erro ao ler entrada!");
+        String::from(owner.trim())
     }
 }
