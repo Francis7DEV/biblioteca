@@ -1,11 +1,13 @@
+mod book;
 mod library;
 use library::Library;
 use std::{thread, time};
 
 fn main() {
     greeting();
-    let teste: Library = Library::new_lib();
-    println!("{}", teste.get_name())
+    let mut teste: Library = Library::new();
+    teste.add_book();
+    println!("Aqui o livro: {:#?}", teste.get_book(0))
 }
 
 fn greeting() {

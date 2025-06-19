@@ -1,17 +1,18 @@
+use crate::book::Book;
 use std::io;
 
 pub(super) struct Library {
     name: String,
     owner: String,
-    books: u32,
+    books: Vec<Book>,
 }
 
 impl Library {
-    pub(super) fn new_lib() -> Library {
+    pub(super) fn new() -> Library {
         Library {
             name: Self::set_name(),
             owner: Self::set_owner(),
-            books: 0,
+            books: Vec::new(),
         }
     }
 
@@ -23,8 +24,12 @@ impl Library {
         &self.owner
     }
 
-    pub(super) fn get_books(&self) -> &u32 {
-        &self.books
+    pub(super) fn get_book(&self, index: usize) -> &Book {
+        &self.books[index]
+    }
+
+    pub(super) fn add_book(&mut self) {
+        &mut self.books.push(Book::new());
     }
 
     fn set_name() -> String {
