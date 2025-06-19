@@ -4,7 +4,7 @@ mod menu;
 use clearscreen;
 use library::Library;
 use menu::library_menu;
-use std::{io::stdin, process, thread, time};
+use std::{io, process, thread, time};
 
 fn main() {
     let mut librarys: Vec<Library> = Vec::new();
@@ -22,7 +22,7 @@ fn main() {
         } else {
             match menu::initial(1) {
                 1 => {
-                    acess(&librarys);
+                    acess(&mut librarys);
                 }
                 2 => librarys.push(Library::new()),
                 _ => process::exit(0),
@@ -42,7 +42,7 @@ fn greeting() {
     clear();
 }
 
-fn acess(librarys: &Vec<Library>) {
+fn acess(librarys: &mut Vec<Library>) {
     let mut counter: u8 = 1;
     let mut option: String = String::new();
     clear();
@@ -52,7 +52,7 @@ fn acess(librarys: &Vec<Library>) {
         counter += 1;
     }
     println!("* - Voltar.");
-    stdin()
+    io::stdin()
         .read_line(&mut option)
         .expect("Erro ao ler entrada.");
     match option.trim().parse::<u8>() {
@@ -60,7 +60,7 @@ fn acess(librarys: &Vec<Library>) {
             if num < 1 {
             } else {
                 let index = (num - 1) as usize;
-                library_menu::show(&librarys[index]);
+                library_menu::show(&mut librarys[index]);
             }
         }
         Err(_) => {}
