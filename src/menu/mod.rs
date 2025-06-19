@@ -16,8 +16,7 @@ pub(super) fn initial(version: u8) -> u8 {
         println!(
             "1 - Acessar biblioteca.\n\
             2 - Criar nova biblioteca.\n\
-            3 - Editar biblioteca.\n\
-            4 - Deletar biblioteca.\n\
+            3 - Deletar biblioteca.\n\
             * - Sair."
         );
     }

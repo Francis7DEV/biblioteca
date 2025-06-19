@@ -25,6 +25,7 @@ fn main() {
                     acess(&mut librarys);
                 }
                 2 => librarys.push(Library::new()),
+                3 => delete(&mut librarys),
                 _ => process::exit(0),
             }
         }
@@ -61,6 +62,31 @@ fn acess(librarys: &mut Vec<Library>) {
             } else {
                 let index = (num - 1) as usize;
                 library_menu::show(&mut librarys[index]);
+            }
+        }
+        Err(_) => {}
+    };
+}
+
+fn delete(librarys: &mut Vec<Library>) {
+    let mut counter: u8 = 1;
+    let mut option: String = String::new();
+    clear();
+    println!("Qual biblioteca deseja DELETAR?\n");
+    for lib in librarys.iter() {
+        println!("{} - {}.", counter, lib.get_name());
+        counter += 1;
+    }
+    println!("* - Voltar.");
+    io::stdin()
+        .read_line(&mut option)
+        .expect("Erro ao ler entrada.");
+    match option.trim().parse::<u8>() {
+        Ok(num) => {
+            if num < 1 {
+            } else {
+                let index = (num - 1) as usize;
+                librarys.remove(index);
             }
         }
         Err(_) => {}
