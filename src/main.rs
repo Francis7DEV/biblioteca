@@ -3,6 +3,7 @@ mod library;
 mod menu;
 use clearscreen;
 use library::Library;
+use menu::library_menu;
 use std::{io::stdin, process, thread, time};
 
 fn main() {
@@ -23,6 +24,7 @@ fn main() {
                 1 => {
                     acess(&librarys);
                 }
+                2 => librarys.push(Library::new()),
                 _ => process::exit(0),
             }
         }
@@ -58,8 +60,7 @@ fn acess(librarys: &Vec<Library>) {
             if num < 1 {
             } else {
                 let index = (num - 1) as usize;
-                println!("Estamos na {}.", librarys[index].get_name());
-                sleep(1.0);
+                library_menu::show(&librarys[index]);
             }
         }
         Err(_) => {}

@@ -1,4 +1,5 @@
 use crate::clear;
+pub mod library_menu;
 use std::io;
 
 pub(super) fn initial(version: u8) -> u8 {
