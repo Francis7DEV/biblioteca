@@ -1,8 +1,9 @@
 mod book;
 mod library;
+mod menu;
 use clearscreen;
 use library::Library;
-use std::{io, process, thread, time};
+use std::{io::stdin, process, thread, time};
 
 fn main() {
     let mut librarys: Vec<Library> = Vec::new();
@@ -11,21 +12,26 @@ fn main() {
         if librarys.len() == 0 {
             println!("Nenhuma Biblioteca ainda cadastrada!!");
             sleep(1.0);
-            match menu(0) {
+            match menu::initial(0) {
                 1 => {
                     librarys.push(Library::new());
-                    break;
                 }
                 _ => process::exit(0),
             }
         } else {
+            match menu::initial(1) {
+                1 => {
+                    acess(&librarys);
+                }
+                _ => process::exit(0),
+            }
         }
     }
 }
 
 fn greeting() {
     clear();
-    println!("__________Bem vindo!__________\n");
+    println!("__________Bem vindo!__________\n\n");
     sleep(1.0);
     println!("Este código tem como intuito estudar o uso de structs em Rust.");
     sleep(1.5);
@@ -34,32 +40,30 @@ fn greeting() {
     clear();
 }
 
-fn menu(version: u8) -> u8 {
-    clear();
+fn acess(librarys: &Vec<Library>) {
+    let mut counter: u8 = 1;
     let mut option: String = String::new();
-    println!("__________Bibliotecas__________\n\n\n");
-    if version == 0 {
-        println!(
-            "Deseja cadastrar uma nova Biblioteca?\n\n \
-            1 - SIM.\n \
-            * - SAIR.\n"
-        );
-    } else if version == 1 {
-        println!(
-            "1 - Acessar biblioteca.\n \
-            2 - Criar nova biblioteca.\n \
-            3 - Editar biblioteca.\n \
-            4 - Deletar biblioteca.\n \
-            * - Sair."
-        );
+    clear();
+    println!("Qual biblioteca deseja acessar?\n");
+    for lib in librarys.iter() {
+        println!("{} - {}.", counter, lib.get_name());
+        counter += 1;
     }
-    io::stdin()
+    println!("* - Voltar.");
+    stdin()
         .read_line(&mut option)
         .expect("Erro ao ler entrada.");
-    match option.trim().parse() {
-        Ok(num) => num,
-        Err(_) => 0,
-    }
+    match option.trim().parse::<u8>() {
+        Ok(num) => {
+            if num < 1 {
+            } else {
+                let index = (num - 1) as usize;
+                println!("Estamos na {}.", librarys[index].get_name());
+                sleep(1.0);
+            }
+        }
+        Err(_) => {}
+    };
 }
 
 pub(crate) fn sleep(time: f32) {
