@@ -1,4 +1,4 @@
-use crate::book::Book;
+use crate::{book::Book, clear};
 use std::io;
 
 pub(super) struct Library {
@@ -16,19 +16,34 @@ impl Library {
         }
     }
 
-    pub(super) fn get_name(&self) -> &str {
+    pub(super) fn menu(&self) {
+        clear();
+        let mut option: String = String::new();
+        println!("__________{}__________\n\n\n", &self.name);
+        println!(
+            "1 - Acessar biblioteca.\n \
+            2 - Editar biblioteca.\n \
+            3 - Deletar biblioteca.\n \
+            * - Sair."
+        );
+        io::stdin()
+            .read_line(&mut option)
+            .expect("Erro ao ler entrada.");
+    }
+
+    fn get_name(&self) -> &str {
         &self.name
     }
 
-    pub(super) fn get_owner(&self) -> &str {
+    fn get_owner(&self) -> &str {
         &self.owner
     }
 
-    pub(super) fn get_book(&self, index: usize) -> &Book {
+    fn get_book(&self, index: usize) -> &Book {
         &self.books[index]
     }
 
-    pub(super) fn add_book(&mut self) {
+    fn add_book(&mut self) {
         &mut self.books.push(Book::new());
     }
 

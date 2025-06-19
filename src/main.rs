@@ -11,13 +11,14 @@ fn main() {
         if librarys.len() == 0 {
             println!("Nenhuma Biblioteca ainda cadastrada!!");
             sleep(1.0);
-            match menu() {
+            match menu(0) {
                 1 => {
                     librarys.push(Library::new());
                     break;
                 }
                 _ => process::exit(0),
             }
+        } else {
         }
     }
 }
@@ -33,24 +34,25 @@ fn greeting() {
     clear();
 }
 
-fn clear() {
-    match clearscreen::clear() {
-        Ok(_) => {}
-        Err(_) => {
-            println!("\n\n\n")
-        }
-    };
-}
-
-fn menu() -> u8 {
+fn menu(version: u8) -> u8 {
     clear();
     let mut option: String = String::new();
-    println!(
-        "__________Bibliotecas__________\n\n\n \
-    Deseja cadastrar uma nova Biblioteca?\n\n \
-    1 - SIM.\n \
-    * - SAIR.\n"
-    );
+    println!("__________Bibliotecas__________\n\n\n");
+    if version == 0 {
+        println!(
+            "Deseja cadastrar uma nova Biblioteca?\n\n \
+            1 - SIM.\n \
+            * - SAIR.\n"
+        );
+    } else if version == 1 {
+        println!(
+            "1 - Acessar biblioteca.\n \
+            2 - Criar nova biblioteca.\n \
+            3 - Editar biblioteca.\n \
+            4 - Deletar biblioteca.\n \
+            * - Sair."
+        );
+    }
     io::stdin()
         .read_line(&mut option)
         .expect("Erro ao ler entrada.");
@@ -60,6 +62,15 @@ fn menu() -> u8 {
     }
 }
 
-fn sleep(time: f32) {
+pub(crate) fn sleep(time: f32) {
     thread::sleep(time::Duration::from_secs_f32(time));
+}
+
+pub(crate) fn clear() {
+    match clearscreen::clear() {
+        Ok(_) => {}
+        Err(_) => {
+            println!("\n\n\n")
+        }
+    };
 }
