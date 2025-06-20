@@ -1,13 +1,19 @@
+// Importações:
 use crate::{book::Book, clear};
 use std::io;
 
+// Struct de Library
 pub(super) struct Library {
+    // Nome da biblioteca.
     name: String,
+    // Nome do dono da biblioteca.
     owner: String,
+    // Livros da biblioteca.
     books: Vec<Book>,
 }
 
 impl Library {
+    // Função que cria uma nova Library.
     pub(super) fn new() -> Library {
         Library {
             name: Self::set_name(),
@@ -16,6 +22,7 @@ impl Library {
         }
     }
 
+    // Getters:
     pub(super) fn get_name(&self) -> &str {
         &self.name
     }
@@ -28,10 +35,12 @@ impl Library {
         &self.books[index]
     }
 
+    // Adiciona um novo livro.
     pub(super) fn add_book(&mut self) {
         &mut self.books.push(Book::new());
     }
 
+    // Setters:
     fn set_name() -> String {
         clear();
         let mut name: String = String::new();
