@@ -1,14 +1,21 @@
+// Importações:
 use std::io;
 
 #[derive(Debug)]
+// Struct de Book
 pub(super) struct Book {
+    // Título do livro.
     title: String,
+    // Nome do autor.
     author: String,
+    // Número de páginas.
     n_pages: u32,
+    // Ano de publicação.
     y_publication: String,
 }
 
 impl Book {
+    // Função que cria um novo livro.
     pub(super) fn new() -> Book {
         Book {
             title: Self::set_title(),
@@ -18,6 +25,7 @@ impl Book {
         }
     }
 
+    // Setters:
     fn set_title() -> String {
         let mut title: String = String::new();
         println!("Qual o título do Livro?");
