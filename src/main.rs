@@ -84,7 +84,7 @@ fn acess(librarys: &mut Vec<Library>) {
             } else {
                 // Calcula o index (num-1).
                 let index = (num - 1) as usize;
-                // Chama o menu da biblioteca selecionada.
+                // Chama o menu passando a biblioteca selecionada.
                 library_menu::show(&mut librarys[index]);
             }
         }
