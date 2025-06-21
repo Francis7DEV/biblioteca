@@ -1,6 +1,6 @@
 // Importações:
 use crate::{book::Book, clear};
-use std::{io, option};
+use std::io;
 
 // Struct de Library
 pub(super) struct Library {
@@ -60,44 +60,80 @@ impl Library {
         clear();
         println!("__________{}__________\n", self.name);
         println!("{} percente a: {}.\n", self.name, self.owner);
-        println!("Atualmente conta com um acervo de {}.", self.books.len())
+        println!(
+            "Atualmente conta com um acervo de {} {}.",
+            self.books.len(),
+            if self.books.len() > 1 {
+                "livros"
+            } else {
+                "livro"
+            }
+        );
+        println!("\n\n\nPressione ENTER para continuar.");
+        io::stdin()
+            .read_line(&mut String::new())
+            .expect("Erro ao ler entrada.");
     }
 
     // Edita os dados da biblioteca:
     pub(super) fn edit(&mut self) {
         // String para armazenar opção escolhida.
-        let mut option: String = String::new();
-        println!(
-            "1 - Editar nome.\n\
-            2 - Editar nome do dono.\n\
-            3 - Resetar livros armazenados.\n\
-            * - Voltar."
-        );
-        io::stdin()
-            .read_line(&mut option)
-            .expect("Erro ao ler entrada.");
-        match option.trim().parse::<u8>() {
-            Ok(num) => match num {
-                1 => self.name = Self::set_name(),
-                2 => self.owner = Self::set_owner(),
-                3 => self.books.clear(),
-                _ => {}
-            },
-            Err(_) => {}
+        loop {
+            clear();
+            println!("__________{}__________\n", self.name);
+            let mut option: String = String::new();
+            println!(
+                "1 - Editar nome.\n\
+                2 - Editar nome do dono.\n\
+                3 - Resetar livros armazenados.\n\
+                * - Voltar."
+            );
+            io::stdin()
+                .read_line(&mut option)
+                .expect("Erro ao ler entrada.");
+            match option.trim().parse::<u8>() {
+                Ok(num) => match num {
+                    1 => self.name = Self::set_name(),
+                    2 => self.owner = Self::set_owner(),
+                    3 => self.books.clear(),
+                    _ => break,
+                },
+                Err(_) => {}
+            }
+        }
+    }
+
+    // Exibe menu com livros:
+    pub(super) fn show_books(&self) {
+        loop {
+            clear();
+            let mut option: String = String::new();
+            let mut counter: u8 = 1;
+            println!("Qual livro deseja inspecionar?\n");
+            for book in self.books.iter() {
+                println!("{} - {}.", counter, book.get_title());
+                counter += 1;
+            }
+            print!("* - Voltar.");
+            io::stdin()
+                .read_line(&mut option)
+                .expect("Erro ao ler entrada");
+            match option.trim().parse::<u8>() {
+                Ok(num) => {
+                    if num < 1 {
+                        break;
+                    } else {
+                        self.books[(num - 1) as usize].inspect();
+                    }
+                }
+                Err(_) => {}
+            }
         }
     }
 
     // Getters:
     pub(super) fn get_name(&self) -> &str {
         &self.name
-    }
-
-    pub(super) fn get_owner(&self) -> &str {
-        &self.owner
-    }
-
-    pub(super) fn get_book(&self, index: usize) -> &Book {
-        &self.books[index]
     }
 
     // Setters:

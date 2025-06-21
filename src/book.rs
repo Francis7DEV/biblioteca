@@ -1,4 +1,5 @@
 // Importações:
+use crate::clear;
 use std::io;
 
 #[derive(Debug)]
@@ -25,6 +26,22 @@ impl Book {
         }
     }
 
+    pub(super) fn inspect(&self) {
+        clear();
+        println!(
+            "Título {}\n\
+            Autor: {}\n\
+            N° de paginas: {}\n\
+            Ano de publicação: {}",
+            self.title, self.author, self.n_pages, self.y_publication
+        );
+        println!("* - Voltar.");
+        println!("\n\n\nPressione ENTER para voltar.");
+        io::stdin()
+            .read_line(&mut String::new())
+            .expect("Erro ao ler entrada.");
+    }
+
     // Getters:
     pub(super) fn get_title(&self) -> &str {
         &self.title
@@ -32,6 +49,7 @@ impl Book {
 
     // Setters:
     fn set_title() -> String {
+        clear();
         let mut title: String = String::new();
         println!("Qual o título do Livro?");
         io::stdin()
@@ -41,6 +59,7 @@ impl Book {
     }
 
     fn set_author() -> String {
+        clear();
         let mut author: String = String::new();
         println!("Qual o nome do Autor?");
         io::stdin()
@@ -50,6 +69,7 @@ impl Book {
     }
 
     fn set_n_pages() -> u32 {
+        clear();
         let mut n_pages: String = String::new();
         println!("Quantas páginas tem o livro?");
         io::stdin()
@@ -62,6 +82,7 @@ impl Book {
     }
 
     fn set_y_publication() -> String {
+        clear();
         let mut y_publication: String = String::new();
         println!("Em que ano foi publicado?");
         io::stdin()
