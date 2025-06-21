@@ -22,6 +22,46 @@ impl Library {
         }
     }
 
+    // Adiciona um novo livro.
+    pub(super) fn add_book(&mut self) {
+        self.books.push(Book::new());
+    }
+
+    // Remove um livro.
+    pub(super) fn remove_book(&mut self) {
+        clear();
+        // Armazena a opção escolhida.
+        let mut option: String = String::new();
+        // Contador para print dos livros.
+        let mut counter: u8 = 1;
+        println!("Qual livro deseja deletar?");
+        for book in self.books.iter() {
+            println!("{} - {}.", counter, book.get_title());
+            counter += 1;
+        }
+        println!("* - Voltar.");
+        io::stdin()
+            .read_line(&mut option)
+            .expect("Erro ao ler entrada.");
+        match option.trim().parse::<u8>() {
+            Ok(num) => {
+                if num < 1 {
+                } else {
+                    let index: usize = (num - 1) as usize;
+                    self.books.remove(index);
+                }
+            }
+            Err(_) => {}
+        }
+    }
+
+    pub(super) fn report(&self) {
+        clear();
+        println!("__________{}__________\n", self.name);
+        println!("{} percente a: {}.\n", self.name, self.owner);
+        println!("Atualmente conta com um acervo de {}.", self.books.len())
+    }
+
     // Getters:
     pub(super) fn get_name(&self) -> &str {
         &self.name
@@ -33,11 +73,6 @@ impl Library {
 
     pub(super) fn get_book(&self, index: usize) -> &Book {
         &self.books[index]
-    }
-
-    // Adiciona um novo livro.
-    pub(super) fn add_book(&mut self) {
-        &mut self.books.push(Book::new());
     }
 
     // Setters:

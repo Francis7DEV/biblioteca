@@ -11,6 +11,8 @@ pub(crate) fn show(library: &mut Library) {
         // Chama menu e faz match da opção escolhida.
         match menu() {
             1 => library.add_book(),
+            2 => library.remove_book(),
+            3 => library.report(),
             _ => break,
         }
     }
@@ -26,6 +28,9 @@ fn title(name: &str) {
 fn menu() -> u8 {
     println!(
         "1 - Adicionar livro.\n\
+        2 - Remover livro.\n\
+        3 - Exibir relatório.\n\
+        4 - Editar biblioteca.\n\
         * - Voltar."
     );
     let mut option: String = String::new();

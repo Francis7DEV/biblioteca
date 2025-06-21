@@ -25,6 +25,11 @@ impl Book {
         }
     }
 
+    // Getters:
+    pub(super) fn get_title(&self) -> &str {
+        &self.title
+    }
+
     // Setters:
     fn set_title() -> String {
         let mut title: String = String::new();
