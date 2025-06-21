@@ -1,6 +1,6 @@
 // Importações:
 use crate::{book::Book, clear};
-use std::io;
+use std::{io, option};
 
 // Struct de Library
 pub(super) struct Library {
@@ -55,11 +55,36 @@ impl Library {
         }
     }
 
+    // Printa os dados da biblioteca:
     pub(super) fn report(&self) {
         clear();
         println!("__________{}__________\n", self.name);
         println!("{} percente a: {}.\n", self.name, self.owner);
         println!("Atualmente conta com um acervo de {}.", self.books.len())
+    }
+
+    // Edita os dados da biblioteca:
+    pub(super) fn edit(&mut self) {
+        // String para armazenar opção escolhida.
+        let mut option: String = String::new();
+        println!(
+            "1 - Editar nome.\n\
+            2 - Editar nome do dono.\n\
+            3 - Resetar livros armazenados.\n\
+            * - Voltar."
+        );
+        io::stdin()
+            .read_line(&mut option)
+            .expect("Erro ao ler entrada.");
+        match option.trim().parse::<u8>() {
+            Ok(num) => match num {
+                1 => self.name = Self::set_name(),
+                2 => self.owner = Self::set_owner(),
+                3 => self.books.clear(),
+                _ => {}
+            },
+            Err(_) => {}
+        }
     }
 
     // Getters:

@@ -13,6 +13,7 @@ pub(crate) fn show(library: &mut Library) {
             1 => library.add_book(),
             2 => library.remove_book(),
             3 => library.report(),
+            4 => library.edit(),
             _ => break,
         }
     }
