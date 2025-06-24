@@ -79,8 +79,8 @@ fn acess(librarys: &mut Vec<Library>) {
         .expect("Erro ao ler entrada.");
     match option.trim().parse::<u8>() {
         Ok(num) => {
-            // Não faz nada se a entrada for menor que 1.
-            if num < 1 {
+            // Não faz nada se a entrada for menor que 1 ou maior que as opções disponíveis.
+            if num < 1 || num > counter {
             } else {
                 // Calcula o index (num-1).
                 let index = (num - 1) as usize;
@@ -109,7 +109,7 @@ fn delete(librarys: &mut Vec<Library>) {
         .expect("Erro ao ler entrada.");
     match option.trim().parse::<u8>() {
         Ok(num) => {
-            if num < 1 {
+            if num < 1 || num > counter {
             } else {
                 let index = (num - 1) as usize;
                 // Remove a library de librarys com base no index.

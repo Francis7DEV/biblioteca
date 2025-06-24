@@ -33,7 +33,7 @@ fn menu() -> u8 {
         2 - Remover livro.\n\
         3 - Exibir relatório.\n\
         4 - Editar biblioteca.\n\
-        5 - Visualizar livros.\
+        5 - Visualizar livros.\n\
         * - Voltar."
     );
     let mut option: String = String::new();

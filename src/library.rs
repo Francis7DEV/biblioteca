@@ -45,7 +45,7 @@ impl Library {
             .expect("Erro ao ler entrada.");
         match option.trim().parse::<u8>() {
             Ok(num) => {
-                if num < 1 {
+                if num < 1 || num > counter {
                 } else {
                     let index: usize = (num - 1) as usize;
                     self.books.remove(index);
@@ -114,13 +114,13 @@ impl Library {
                 println!("{} - {}.", counter, book.get_title());
                 counter += 1;
             }
-            print!("* - Voltar.");
+            println!("* - Voltar.");
             io::stdin()
                 .read_line(&mut option)
                 .expect("Erro ao ler entrada");
             match option.trim().parse::<u8>() {
                 Ok(num) => {
-                    if num < 1 {
+                    if num < 1 || num > counter {
                         break;
                     } else {
                         self.books[(num - 1) as usize].inspect();

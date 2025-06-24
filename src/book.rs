@@ -2,7 +2,6 @@
 use crate::clear;
 use std::io;
 
-#[derive(Debug)]
 // Struct de Book
 pub(super) struct Book {
     // Título do livro.
@@ -26,6 +25,7 @@ impl Book {
         }
     }
 
+    // Função para inspecionar o livro.
     pub(super) fn inspect(&self) {
         clear();
         println!(
