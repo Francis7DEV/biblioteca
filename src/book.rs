@@ -35,7 +35,6 @@ impl Book {
             Ano de publicação: {}",
             self.title, self.author, self.n_pages, self.y_publication
         );
-        println!("* - Voltar.");
         println!("\n\n\nPressione ENTER para voltar.");
         io::stdin()
             .read_line(&mut String::new())
